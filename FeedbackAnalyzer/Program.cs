@@ -16,16 +16,19 @@ namespace FeedbackAnalyzer
                 GetAnswers ansObj = new GetAnswers();
                 string answers = ansObj.getUserAnswers();
                 Dictionary<string, int> wordDic = Utils.getMostCommonOccurences(answers, 5); // filtering out the most common words from answers
+
+                Console.WriteLine("============================RESULT======================================");
                 foreach (KeyValuePair<string, int> e in wordDic)
                 {
                    Console.WriteLine("Word : " + e.Key + ", No. of Occurences : " + e.Value);
-                   Console.ReadKey();
                 }
             } catch (Exception e)
             {
                 Console.WriteLine(e.Message);
-                Console.ReadKey();
             }
+            Console.WriteLine("=============================END========================================");
+            Console.ReadKey();
+
         }
     }
 }

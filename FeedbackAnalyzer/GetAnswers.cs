@@ -38,7 +38,7 @@ namespace FeedbackAnalyzer
             requestData = ""; // NOTE: filtering api request is not working it is giving response code 500
             //tried the same json equest from API documentation
 
-            Console.WriteLine(obj.ToString());
+           // Console.WriteLine(obj.ToString());
 
             ApiClient api = new ApiClient(ApiConstants.ANSWERS_API, "POST", requestData, false, true);
             string apiResponse = api.GetResponse();
@@ -63,7 +63,7 @@ namespace FeedbackAnalyzer
                     }
                 }
             }
-            Console.WriteLine(sb.ToString());
+           // Console.WriteLine(sb.ToString().ToUpper());
             return sb.ToString().ToUpper();
         }
        

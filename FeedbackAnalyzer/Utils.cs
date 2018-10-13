@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -10,11 +11,11 @@ namespace FeedbackAnalyzer
     class Utils
     {
 
-        private static String[] pronouns = { "he", "she", "his", "him", "her" }; 
+        private static String[] pronouns = { "HE", "SHE", "HIS", "HIM", "HER" }; 
 
-        private static String[] adverbs = { "still", "then", "finally", "otherwise", "instead" };
+        private static String[] adverbs = { "STILL", "THEN", "FINALLY", "OTHERWISE", "INSTEAD" };
 
-        private static String[] prepositions = { "of", "from", "at", "among", "to", "for", "on", "in", "but","like", "except", "now" };
+        private static String[] prepositions = { "OF", "FROM", "WAS", "IT", "AT", "AMONG", "TO", "IS", "FOR", "ON", "IN", "BUT","LIKE", "THE", "NOW" };
 
         // for above we can use NLP apis to reomve adverbs,preposition etc
 
@@ -22,28 +23,33 @@ namespace FeedbackAnalyzer
         {
             foreach(String s in pronouns)
             {
-                text.Replace(s, " ");
+                string textToFind = string.Format(@"\b{0}\b", s);
+                text =  Regex.Replace(text, textToFind, "");
             }
 
             foreach (String s in adverbs)
             {
-                text.Replace(s, " ");
+                string textToFind = string.Format(@"\b{0}\b", s);
+                text = Regex.Replace(text, textToFind, "");
             }
 
             foreach (String s in prepositions)
             {
-                text.Replace(s, " ");
-
+                string textToFind = string.Format(@"\b{0}\b", s); // finding the exact match
+                text = Regex.Replace(text, textToFind, "");
             }
-
+            text = Regex.Replace(text, @"( |\r?\n)\1+", "$1");  // removing all extra spaces
+          //  Console.WriteLine("======================================================");
+          //  Console.WriteLine(text);
             return text;
-        }
 
+        }
+  
         public static Dictionary<string, int> getMostCommonOccurences(String text, int count)
         {
-           text = removeCommonArtilces(text);
+           string words = removeCommonArtilces(text);
 
-            var orderedWords = text
+            var orderedWords = words
               .Split(' ')
               .GroupBy(x => x)
               .Select(x => new {

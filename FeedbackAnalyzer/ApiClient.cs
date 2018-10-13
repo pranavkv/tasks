@@ -62,7 +62,7 @@ namespace FeedbackAnalyzer
             {
                 //string credentials = Convert.ToBase64String(ASCIIEncoding.ASCII.GetBytes(username + ":" + password)); // setting the auth header in request
                 request.Headers.Add("Authorization", "Bearer " + apitoken);
-                Console.WriteLine("apitoken={0}", apitoken);
+                //Console.WriteLine("apitoken={0}", apitoken);
             }
 
            if (method.Equals("POST"))
